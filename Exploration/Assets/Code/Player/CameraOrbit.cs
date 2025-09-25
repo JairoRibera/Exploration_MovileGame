@@ -13,6 +13,10 @@ public class CameraOrbit : MonoBehaviour
     public float minZoom = 5f;        // Distancia mínima
     public float maxZoom = 20f;       // Distancia máxima
 
+    [Header("Pitch Settings")]
+    public float minPitch = 10f;      // Límite inferior de ángulo vertical
+    public float maxPitch = 80f;      // Límite superior de ángulo vertical
+
     private float currentZoom = 10f;  // Zoom inicial
     private float rotation_horizontal = 0f;           // Rotación horizontal
     private float pitch = 30f;        // Rotación vertical fija (como Captain Toad)
@@ -20,8 +24,13 @@ public class CameraOrbit : MonoBehaviour
     void Update()
     {
         // --- Rotación ---
-        float horizontal = Input.GetAxis("OrbitalCamera"); // A/D o flechas
+        float horizontal = Input.GetAxis("OrbitalCameraHorizontal"); // A/D o flechas
         rotation_horizontal += horizontal * rotationSpeed * Time.deltaTime;
+
+        // --- Rotación Vertical ---
+        float vertical = Input.GetAxis("OrbitalCameraVertical"); // W/S o flechas
+        pitch -= vertical * rotationSpeed * Time.deltaTime;
+        pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
 
         //// --- Zoom ---
         //float scroll = Input.GetAxis("Mouse ScrollWheel");
