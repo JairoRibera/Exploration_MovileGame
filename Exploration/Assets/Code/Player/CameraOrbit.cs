@@ -29,7 +29,7 @@ public class CameraOrbit : MonoBehaviour
 
         // --- Rotación Vertical ---
         float vertical = Input.GetAxis("OrbitalCameraVertical"); // W/S o flechas
-        pitch -= vertical * rotationSpeed * Time.deltaTime;
+        pitch += vertical * rotationSpeed * Time.deltaTime;
         pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
 
         //// --- Zoom ---
