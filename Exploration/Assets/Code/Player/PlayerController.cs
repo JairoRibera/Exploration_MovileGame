@@ -12,10 +12,17 @@ public class PlayerController : MonoBehaviour
     private Vector3 input;
     public Transform cameraTransform; // Asignar la cámara desde el inspector
     private Vector3 inputDirection;
+
+    [Header("Escaleras")]
+    private Collider colliderplayer;
+    private float gravity;
+    private bool isclimbing;
     // Start is called before the first frame update
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        colliderplayer = GetComponent<Collider>();
+        
     }
 
     // Update is called once per frame
@@ -71,5 +78,8 @@ public class PlayerController : MonoBehaviour
             Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
             _rb.MovePosition(transform.position + movement * moveSpeed * Time.deltaTime);
         }
+    }
+    public void climbing()
+    {
     }
 }

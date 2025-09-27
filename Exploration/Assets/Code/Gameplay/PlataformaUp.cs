@@ -5,41 +5,23 @@ using UnityEngine;
 
 public class PlataformaUp : MonoBehaviour
 {
+    public Transform[] points;
     public float speed;
-    public Transform posFinal;
-    private Vector3 posInicio;
-    public bool isDetected = false;
-    // Start is called before the first frame update
-    void Start()
-    {
-        posInicio = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-    }
+    public int currentPoint;
+    public Transform platformPos;
 
     // Update is called once per frame
     void Update()
     {
-        PlayerDetected();
-    }
-    public void PlayerDetected()
-    {
-        if (isDetected == true)
-        {
-            transform.position = new Vector3(posFinal.transform.position.x, posFinal.transform.position.y, posFinal.transform.position.z) *speed;
-        }
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.CompareTag("Player"))
-        {
-            isDetected = true;
-        }
-    }
+        platformPos.position = Vector3.MoveTowards(platformPos.position, points[currentPoint].position, speed * Time.deltaTime);
 
-    //private void OnTriggerExit(Collider other)
-    //{
-    //    if (other.CompareTag("Player"))
-    //    {
-    //        isDetected = false;
-    //    }
-    //}
+        if (Vector3.Distance(platformPos.position, points[currentPoint].position) < 0.01f)
+        {
+            currentPoint++;
+            if (currentPoint >= points.Length)
+            {
+                currentPoint = 0;
+            }
+        }
+    }
 }
