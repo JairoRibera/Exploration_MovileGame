@@ -9,6 +9,7 @@ public class PlataformaUp : MonoBehaviour
     public float speed;
     public int currentPoint;
     public Transform platformPos;
+    
 
     // Update is called once per frame
     void Update()
@@ -23,5 +24,9 @@ public class PlataformaUp : MonoBehaviour
                 currentPoint = 0;
             }
         }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        
     }
 }
