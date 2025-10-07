@@ -23,11 +23,9 @@ public class CameraOrbit : MonoBehaviour
 
     void Update()
     {
-        // --- Rotación ---
         float horizontal = Input.GetAxis("OrbitalCameraHorizontal"); // A/D o flechas
         rotation_horizontal += horizontal * rotationSpeed * Time.deltaTime;
 
-        // --- Rotación Vertical ---
         float vertical = Input.GetAxis("OrbitalCameraVertical"); // W/S o flechas
         pitch += vertical * rotationSpeed * Time.deltaTime;
         pitch = Mathf.Clamp(pitch, minPitch, maxPitch);

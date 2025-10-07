@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class PickItem : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class PickItem : MonoBehaviour
     public float holdDistance = 2f;
     public float moveSmoothness = 10f;
     public LayerMask grabbableLayer;
-    public string grabInput = "e";
+    //public string grabInput = "e";
 
     [Header("References")]
     public Transform holdPoint; // Donde se sostiene el objeto (frente al jugador)
@@ -19,7 +20,7 @@ public class PickItem : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(grabInput))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             if (heldObjectRb == null)
             {
@@ -54,6 +55,7 @@ public class PickItem : MonoBehaviour
                 heldObjectRb.transform.parent = holdPoint; // opcional: parenting visual
                 heldObjectRb.useGravity = false;
                 heldObjectRb.freezeRotation = true;
+                targetRb.GetComponent<Collider>().enabled = false;
             }
         }
     }
@@ -66,6 +68,7 @@ public class PickItem : MonoBehaviour
             heldObjectRb.freezeRotation = false;
             heldObjectRb.velocity = Vector3.zero;
             heldObjectRb.transform.parent = heldObjectOriginalParent;
+            heldObjectRb.GetComponent<Collider>().enabled = true;
             heldObjectRb = null;
         }
     }
