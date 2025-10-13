@@ -480,7 +480,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 523508463}
-  rotationSpeed: 50
+  rotationSpeed: 100
   zoomSpeed: 5
   minZoom: 5
   maxZoom: 20
