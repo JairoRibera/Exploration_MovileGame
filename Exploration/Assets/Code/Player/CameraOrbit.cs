@@ -31,9 +31,9 @@ public class CameraOrbit : MonoBehaviour
         pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
 
         //// --- Zoom ---
-        //float scroll = Input.GetAxis("Mouse ScrollWheel");
-        //currentZoom -= scroll * zoomSpeed;
-        //currentZoom = Mathf.Clamp(currentZoom, minZoom, maxZoom);
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+        currentZoom -= scroll * zoomSpeed * Time.deltaTime;
+        currentZoom = Mathf.Clamp(currentZoom, minZoom, maxZoom);
     }
 
     void LateUpdate()
