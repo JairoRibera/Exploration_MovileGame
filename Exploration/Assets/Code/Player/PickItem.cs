@@ -31,6 +31,17 @@ public class PickItem : MonoBehaviour
                 ReleaseObject();
             }
         }
+        if (Input.GetKeyDown(KeyCode.JoystickButton0))
+        {
+            if (heldObjectRb == null)
+            {
+                TryGrabObject();
+            }
+            else
+            {
+                ReleaseObject();
+            }
+        }
 
         // Mover el objeto agarrado hacia el punto de sujeción
         if (heldObjectRb != null)

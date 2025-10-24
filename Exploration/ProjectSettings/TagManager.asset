@@ -10,6 +10,7 @@ TagManager:
   - Tile
   - Obstacle
   - Stair
+  - Palanca
   layers:
   - Default
   - TransparentFX

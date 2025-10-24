@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class CameraOrbit : MonoBehaviour
 {
-    [Header("Target")]
+
+    //[Header("Target")]
     public Transform target; // Centro del escenario
 
     [Header("Orbit Settings")]
@@ -21,28 +22,39 @@ public class CameraOrbit : MonoBehaviour
     private float rotation_horizontal = 0f;           // Rotación horizontal
     private float pitch = 30f;        // Rotación vertical fija (como Captain Toad)
 
+    public bool canOrbit = true;
+    public void Start()
+    {
+        canOrbit = true;
+    }
     void Update()
     {
-        float horizontal = Input.GetAxis("OrbitalCameraHorizontal"); // A/D o flechas
-        rotation_horizontal += horizontal * rotationSpeed * Time.deltaTime;
+        if(canOrbit == true)
+        {
+            float horizontal = Input.GetAxis("OrbitalCameraHorizontal"); // A/D o flechas
+            rotation_horizontal += horizontal * rotationSpeed * Time.deltaTime;
 
-        float vertical = Input.GetAxis("OrbitalCameraVertical"); // W/S o flechas
-        pitch += vertical * rotationSpeed * Time.deltaTime;
-        pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
+            float vertical = Input.GetAxis("OrbitalCameraVertical"); // W/S o flechas
+            pitch += vertical * rotationSpeed * Time.deltaTime;
+            pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
 
-        //// --- Zoom ---
-        float scroll = Input.GetAxis("Mouse ScrollWheel");
-        currentZoom -= scroll * zoomSpeed * Time.deltaTime;
-        currentZoom = Mathf.Clamp(currentZoom, minZoom, maxZoom);
+            //// --- Zoom ---
+            float scroll = Input.GetAxis("Mouse ScrollWheel");
+            currentZoom -= scroll * zoomSpeed * Time.deltaTime;
+            currentZoom = Mathf.Clamp(currentZoom, minZoom, maxZoom);
+        }
     }
 
     void LateUpdate()
     {
-        // Calcula la posición de la cámara en órbita
-        Vector3 offset = new Vector3(0, 0, -currentZoom);
-        Quaternion rotation = Quaternion.Euler(pitch, rotation_horizontal, 0);
+        if (canOrbit == true) 
+        {
+            // Calcula la posición de la cámara en órbita
+            Vector3 offset = new Vector3(0, 0, -currentZoom);
+            Quaternion rotation = Quaternion.Euler(pitch, rotation_horizontal, 0);
 
-        transform.position = target.position + rotation * offset;
-        transform.LookAt(target.position);
+            transform.position = target.position + rotation * offset;
+            transform.LookAt(target.position);
+        }
     }
 }

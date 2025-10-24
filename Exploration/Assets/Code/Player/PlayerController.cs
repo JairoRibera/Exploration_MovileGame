@@ -9,17 +9,15 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Movimiento Player")]
     public float moveSpeed = 5f;
-    private Rigidbody _rb;
-    private bool canMove = true;
+    public Rigidbody _rb;
+    public bool canMove = true;
     //private Vector3 input;
-    public Camera camera; // Asignar la cámara desde el inspector
+    private Camera camera; // Asignar la cámara desde el inspector
     public float rotationSpeed = 10f;
-
     public float velocidadsubida = 10f;
     public bool canClimb = false;
     private bool isClimbing = false;
     private Transform ladderTransform;
-    private Vector3 moveInput;
     public float exitLadderPush = 5f;
     // Start is called before the first frame update
     void Start()
@@ -27,13 +25,9 @@ public class PlayerController : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
         camera = Camera.main;
     }
-
-
-    
     private void FixedUpdate()
     {
 
-        //Escalar();
         ////no usar input en fixedupdate
         ////Hay que normalizar el input para que no se mueva mas rapido en diagonal
         //Vector3 _velocity = input.normalized * moveSpeed;
@@ -51,7 +45,11 @@ public class PlayerController : MonoBehaviour
         Vector3 velocity = moveDir * moveSpeed;
         velocity.y = _rb.velocity.y; // Conservar la velocidad vertical (gravedad, etc.)
         _rb.velocity = velocity;
-
+        if (isClimbing)
+        {
+            Escalar();
+            return;
+        }
         //Rotacion
         if (moveDir != Vector3.zero)
         {
@@ -85,7 +83,13 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (canClimb /*&& Input.GetKeyDown(KeyCode.E)*/)
+        {
+            if (!isClimbing)
+                StartClimbing();
+            else
+                ExitLadder();
+        }
 
     }
     public void Escalar()
@@ -99,7 +103,13 @@ public class PlayerController : MonoBehaviour
         //    ExitLadder();
         //}
     }
-
+    private void StartClimbing()
+    {
+        isClimbing = true;
+        _rb.useGravity = false;
+        _rb.velocity = Vector3.zero;
+        AlignToLadder();
+    }
     private void AlignToLadder()
     {
         // Hace que el jugador mire hacia la escalera
@@ -116,7 +126,7 @@ public class PlayerController : MonoBehaviour
         isClimbing = false;
         _rb.useGravity = true;
         _rb.velocity = transform.forward * exitLadderPush; // pequeño empuje al salir
-        canMove = true;
+        //canMove = true;
     }
     public void MovePlayer()
     {
@@ -135,7 +145,7 @@ public class PlayerController : MonoBehaviour
             _rb.useGravity = false;
             canClimb = true;
             ladderTransform = other.transform;
-            canMove = false;
+            //canMove = false;
         }
     }
     private void OnTriggerExit(Collider other)
@@ -150,19 +160,9 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Plataforma")) transform.parent = collision.transform;
-        //if (collision.gameObject.CompareTag("Stair"))
-        //{
-        //    canClimb = true;
-        //    ladderTransform = collision.transform;
-        //}
     }
     private void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.CompareTag("Plataforma")) transform.parent = null;
-        //if (collision.gameObject.CompareTag("Stair"))
-        //{
-        //    canClimb = false;
-        //    if (isClimbing) ExitLadder();
-        //}
     }
 }
