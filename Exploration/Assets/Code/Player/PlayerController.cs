@@ -19,6 +19,14 @@ public class PlayerController : MonoBehaviour
     private bool isClimbing = false;
     private Transform ladderTransform;
     public float exitLadderPush = 5f;
+
+
+    [Header("GROUND CHECKER")]
+    public Transform groundCheckCenter;
+    //asi no detectara al player ni a otros objetos que estorban
+    public LayerMask groundLayer;
+    public bool isGrounded;
+    public float distanceRay = 1f;
     // Start is called before the first frame update
     void Start()
     {
@@ -102,6 +110,13 @@ public class PlayerController : MonoBehaviour
         //{
         //    ExitLadder();
         //}
+        // Si el jugador no se mueve y toca el suelo, salir de la escalera
+        if (Physics.Raycast(groundCheckCenter.position, Vector3.down, distanceRay, groundLayer))
+        {
+            isClimbing = false;
+            _rb.useGravity = true;
+            _rb.velocity = transform.forward * exitLadderPush; // pequeño empuje al salir
+        }
     }
     private void StartClimbing()
     {
@@ -164,5 +179,10 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.CompareTag("Plataforma")) transform.parent = null;
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawRay(groundCheckCenter.position, Vector3.down * distanceRay);
     }
 }
