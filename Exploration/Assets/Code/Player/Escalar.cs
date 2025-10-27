@@ -6,10 +6,10 @@ public class Escalar : MonoBehaviour
 {
     [Header("Escalar")]
     public float velocidadsubida = 10f;
-    public bool canClimb = false;
-    private bool isClimbing = false;
-    private Transform ladderTransform;
-    public float exitLadderPush = 5f;
+    public bool canClimb = false;//booleana para saber si puede escalar
+    private bool isClimbing = false;//booleana para saber si está escalando
+    private Transform ladderTransform;//transform de la escalera
+    public float exitLadderPush = 5f;//Fuerza para salir de la escalera
     public Rigidbody _rb;
 
     [Header("GROUND CHECKER")]
@@ -27,30 +27,17 @@ public class Escalar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (canClimb /*&& Input.GetKeyDown(KeyCode.E)*/)
-        //{
-        //    if (!isClimbing)
-        //        StartClimbing();
-        //    else
-        //        ExitLadder();
-        //}
-        if (Physics.Raycast(groundCheckCenter.position, Vector3.down, distanceRay, groundLayer))
-        {
-            isGrounded = true;
-        }
-        else isGrounded = false;
+        //Lanzamos un rasho, para saber si está tocando el suelo
+        isGrounded = Physics.Raycast(groundCheckCenter.position, Vector3.down, distanceRay, groundLayer);
     }
     private void FixedUpdate()
     {
-        if (isClimbing)
-        {
-            EscalarLadder();
-        }
-        //if (!canMove) return;
         if (canClimb == true)
         {
-            StartClimbing();
             // Entrar o salir del modo escalera
+            //Esto hace que cada vez que canClimb sea verdadero (en cada frame de FixedUpdate),
+            //cambie continuamente entre subir y no subir, miles de veces por segundo.
+            //Por eso parece que el jugador “parpadea” o “tiembla” en la escalera.
             isClimbing = !isClimbing;
 
             if (isClimbing == true)
@@ -65,12 +52,27 @@ public class Escalar : MonoBehaviour
                 ExitLadder();
             }
         }
+        if (isClimbing)
+        {
+            EscalarLadder();
+        }
+
     }
     public void EscalarLadder()
     {
+        //Obtenemos el input vertical
         float vertical = Input.GetAxisRaw("Vertical");
+        //Creamos un vector para la subida y le añadimos la velocidadsubida
         Vector3 climbDirection = Vector3.up * vertical * velocidadsubida;
         _rb.velocity = climbDirection;
+        //Si el input es menor a 0, es decir que está pulsando para bajar y está tocando el suelo
+        if (vertical < 0 && isGrounded)
+        {
+            //Activamos la gravedad, ponemos en falso el isClimbing, y le añadimos una addforce para que se aleje del collider
+            isClimbing = false;
+            _rb.useGravity = true;
+            _rb.AddForce(transform.forward * exitLadderPush, ForceMode.VelocityChange);
+        }
     }
     private void StartClimbing()
     {
@@ -82,8 +84,10 @@ public class Escalar : MonoBehaviour
     private void AlignToLadder()
     {
         // Hace que el jugador mire hacia la escalera
+        //Hacemos un vector, que será la resta de la pos de la escalera y del jugador
         Vector3 lookDir = ladderTransform.position - transform.position;
         lookDir.y = 0;
+        //Si el valor de Y es distinto de 0 entonces rotamos el jugador para que mire a la escalera
         if (lookDir != Vector3.zero)
         {
             Quaternion rot = Quaternion.LookRotation(lookDir);
@@ -102,10 +106,9 @@ public class Escalar : MonoBehaviour
     {
         if (other.CompareTag("Stair"))
         {
-            _rb.useGravity = false;
-            canClimb = true;
+
             ladderTransform = other.transform;
-            //canMove = false;
+            StartClimbing();
         }
     }
     private void OnTriggerExit(Collider other)
