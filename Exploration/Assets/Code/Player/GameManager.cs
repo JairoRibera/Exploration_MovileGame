@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
+
 
 public class GameManager : MonoBehaviour
 {
@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     }
     public void CambioDeCamara()
     {
-        if(isNearRef.isNear == true && Input.GetKeyDown(KeyCode.JoystickButton0))
+        if(isNearRef.isNear == true && Input.GetKeyDown(KeyCode.JoystickButton0) || isNearRef.isNear == true && Input.GetKeyDown(KeyCode.E))
         {
             joystickRotator.GetComponent<JoystickRotator>().enabled = true;
             CameraOrbit.GetComponent<CameraOrbit>().enabled = false;
@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
             camera.position = posCam.position;
             camera.transform.LookAt(joystickRotator.target.position);
         }
-        if (Input.GetKeyDown(KeyCode.JoystickButton1))
+        if (Input.GetKeyDown(KeyCode.JoystickButton1) || Input.GetKeyDown(KeyCode.Q))
         {
             isNearRef.isNear = false;
             joystickRotator.GetComponent<JoystickRotator>().enabled = false;
