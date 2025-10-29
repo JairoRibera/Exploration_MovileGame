@@ -10,7 +10,7 @@ public class Escalar : MonoBehaviour
     private bool isClimbing = false;//booleana para saber si está escalando
     private Transform ladderTransform;//transform de la escalera
     public float exitLadderPush = 5f;//Fuerza para salir de la escalera
-    public Rigidbody _rb;
+    private Rigidbody _rb;
 
     [Header("GROUND CHECKER")]
     public Transform groundCheckCenter;
