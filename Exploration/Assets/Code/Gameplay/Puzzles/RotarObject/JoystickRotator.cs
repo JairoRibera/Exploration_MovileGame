@@ -20,16 +20,24 @@ public class JoystickRotator : MonoBehaviour
     // Ángulos válidos a los que se "encaja"
     private readonly float[] snapAngles = { -180f, -90f, 0f, 90f, 180f };
 
+    [Header("Detección de cercanía")]
     public IsNear isNear;
+
+    [Header("Ejes de rotación")]
+    public bool canRotX = false;
+    public bool canRotY = false;
+    public bool canRotZ = false;
 
     void Update()
     {
         if (isNear.isNear == true) 
         {
+            if (!isNear || !isNear.isNear)
+                return;
+
             // Leer joystick izquierdo
             float horizontal = Input.GetAxis("OrbitalCameraHorizontal");
             float vertical = Input.GetAxis("OrbitalCameraVertical");
-
             Vector2 stickInput = new Vector2(horizontal, vertical);
 
             // Si el stick está centrado, iniciar el encaje
@@ -60,31 +68,40 @@ public class JoystickRotator : MonoBehaviour
             // Diferencia angular entre frames
             float deltaAngle = Mathf.DeltaAngle(lastAngle, currentAngle);
 
-            // Rotar en eje Z según dirección
+            // Determinar el eje de rotación
+            Vector3 rotationAxis = Vector3.zero;
+
+            if (canRotX) rotationAxis = Vector3.right;
+            else if (canRotY) rotationAxis = Vector3.up;
+            else if (canRotZ) rotationAxis = Vector3.forward;
+
+            // Aplicar rotación según dirección del joystick
             if (deltaAngle > 0)
-                target.Rotate(0f, 0f, -rotationSpeed * Time.deltaTime, Space.Self);
+                target.Rotate(rotationAxis * -rotationSpeed * Time.deltaTime, Space.Self);
             else if (deltaAngle < 0)
-                target.Rotate(0f, 0f, rotationSpeed * Time.deltaTime, Space.Self);
+                target.Rotate(rotationAxis * rotationSpeed * Time.deltaTime, Space.Self);
 
             lastAngle = currentAngle;
         }
 
     }
 
-    private System.Collections.IEnumerator SnapToNearestAngle()
+    private IEnumerator SnapToNearestAngle()
     {
         isSnapping = true;
+        float currentAngle = 0f;
 
-        // Obtener ángulo Z actual normalizado a [-180, 180]
-        float currentZ = NormalizeAngle(target.localEulerAngles.z);
+        if (canRotX) currentAngle = NormalizeAngle(target.localEulerAngles.x);
+        else if (canRotY) currentAngle = NormalizeAngle(target.localEulerAngles.y);
+        else if (canRotZ) currentAngle = NormalizeAngle(target.localEulerAngles.z);
 
-        // Buscar el ángulo más cercano en el array
+        // Buscar el ángulo más cercano
         float nearest = snapAngles[0];
-        float minDiff = Mathf.Abs(Mathf.DeltaAngle(currentZ, nearest));
+        float minDiff = Mathf.Abs(Mathf.DeltaAngle(currentAngle, nearest));
 
         foreach (float a in snapAngles)
         {
-            float diff = Mathf.Abs(Mathf.DeltaAngle(currentZ, a));
+            float diff = Mathf.Abs(Mathf.DeltaAngle(currentAngle, a));
             if (diff < minDiff)
             {
                 minDiff = diff;
@@ -95,7 +112,7 @@ public class JoystickRotator : MonoBehaviour
         // Suavizar la rotación hacia el ángulo más cercano
         float elapsed = 0f;
         float duration = 1f / snapSpeed;
-        float startAngle = currentZ;
+        float startAngle = currentAngle;
 
         while (elapsed < duration)
         {
@@ -104,15 +121,22 @@ public class JoystickRotator : MonoBehaviour
             float smoothAngle = Mathf.LerpAngle(startAngle, nearest, t);
 
             Vector3 localEuler = target.localEulerAngles;
-            localEuler.z = smoothAngle;
-            target.localEulerAngles = localEuler;
 
+            if (canRotX) localEuler.x = smoothAngle;
+            else if (canRotY) localEuler.y = smoothAngle;
+            else if (canRotZ) localEuler.z = smoothAngle;
+
+            target.localEulerAngles = localEuler;
             yield return null;
         }
 
         // Fijar ángulo final exacto
         Vector3 finalEuler = target.localEulerAngles;
-        finalEuler.z = nearest;
+
+        if (canRotX) finalEuler.x = nearest;
+        else if (canRotY) finalEuler.y = nearest;
+        else if (canRotZ) finalEuler.z = nearest;
+
         target.localEulerAngles = finalEuler;
 
         isSnapping = false;

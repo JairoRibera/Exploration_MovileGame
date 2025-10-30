@@ -7,7 +7,7 @@ public class Escalar : MonoBehaviour
     [Header("Escalar")]
     public float velocidadsubida = 10f;
     public bool canClimb = false;//booleana para saber si puede escalar
-    private bool isClimbing = false;//booleana para saber si está escalando
+    public bool isClimbing = false;//booleana para saber si está escalando
     private Transform ladderTransform;//transform de la escalera
     public float exitLadderPush = 5f;//Fuerza para salir de la escalera
     private Rigidbody _rb;
@@ -18,6 +18,7 @@ public class Escalar : MonoBehaviour
     public LayerMask groundLayer;
     public bool isGrounded;
     public float distanceRay;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,10 +39,10 @@ public class Escalar : MonoBehaviour
             //Esto hace que cada vez que canClimb sea verdadero (en cada frame de FixedUpdate),
             //cambie continuamente entre subir y no subir, miles de veces por segundo.
             //Por eso parece que el jugador “parpadea” o “tiembla” en la escalera.
-            isClimbing = !isClimbing;
-
+            //isClimbing = !isClimbing;
             if (isClimbing == true)
             {
+                EscalarLadder();
                 _rb.useGravity = false;
                 _rb.velocity = Vector3.zero;
                 AlignToLadder();
@@ -52,27 +53,11 @@ public class Escalar : MonoBehaviour
                 ExitLadder();
             }
         }
-        if (isClimbing)
-        {
-            EscalarLadder();
-        }
+        //if (isClimbing)
+        //{
+            //EscalarLadder();
+        //}
 
-    }
-    public void EscalarLadder()
-    {
-        //Obtenemos el input vertical
-        float vertical = Input.GetAxisRaw("Vertical");
-        //Creamos un vector para la subida y le añadimos la velocidadsubida
-        Vector3 climbDirection = Vector3.up * vertical * velocidadsubida;
-        _rb.velocity = climbDirection;
-        //Si el input es menor a 0, es decir que está pulsando para bajar y está tocando el suelo
-        if (vertical < 0 && isGrounded)
-        {
-            //Activamos la gravedad, ponemos en falso el isClimbing, y le añadimos una addforce para que se aleje del collider
-            isClimbing = false;
-            _rb.useGravity = true;
-            _rb.AddForce(transform.forward * exitLadderPush, ForceMode.VelocityChange);
-        }
     }
     private void StartClimbing()
     {
@@ -94,6 +79,22 @@ public class Escalar : MonoBehaviour
             transform.rotation = rot;
         }
     }
+    public void EscalarLadder()
+    {
+        //Obtenemos el input vertical
+        float vertical = Input.GetAxisRaw("Vertical");
+        //Creamos un vector para la subida y le añadimos la velocidadsubida
+        Vector3 climbDirection = Vector3.up * vertical * velocidadsubida;
+        _rb.velocity = climbDirection;
+        //Si el input es menor a 0, es decir que está pulsando para bajar y está tocando el suelo
+        if (vertical < 0 && isGrounded)
+        {
+            //Activamos la gravedad, ponemos en falso el isClimbing, y le añadimos una addforce para que se aleje del collider
+            isClimbing = false;
+            _rb.useGravity = true;
+            _rb.AddForce(transform.forward * exitLadderPush, ForceMode.VelocityChange);
+        }
+    }
     private void ExitLadder()
     {
         isClimbing = false;
@@ -106,7 +107,7 @@ public class Escalar : MonoBehaviour
     {
         if (other.CompareTag("Stair"))
         {
-
+            canClimb = true;
             ladderTransform = other.transform;
             StartClimbing();
         }

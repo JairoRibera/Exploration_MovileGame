@@ -29,19 +29,21 @@ public class PlayerController : MonoBehaviour
         // Obtener input
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
-
-        // Convertir input a dirección relativa a la cámara
-        Vector3 camForward = Vector3.Scale(camera.transform.forward, new Vector3(1, 0, 1)).normalized;
-        Vector3 camRight = Vector3.Scale(camera.transform.right, new Vector3(1, 0, 1)).normalized;
-        Vector3 moveDir = (camForward * vertical + camRight * horizontal).normalized;
-        Vector3 velocity = moveDir * moveSpeed;
-        velocity.y = _rb.velocity.y; // Conservar la velocidad vertical (gravedad, etc.)
-        _rb.velocity = velocity;
-        //Rotacion
-        if (moveDir != Vector3.zero)
+        if(canMove == true)
         {
-            Quaternion targetRotation = Quaternion.LookRotation(moveDir);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
+            // Convertir input a dirección relativa a la cámara
+            Vector3 camForward = Vector3.Scale(camera.transform.forward, new Vector3(1, 0, 1)).normalized;
+            Vector3 camRight = Vector3.Scale(camera.transform.right, new Vector3(1, 0, 1)).normalized;
+            Vector3 moveDir = (camForward * vertical + camRight * horizontal).normalized;
+            Vector3 velocity = moveDir * moveSpeed;
+            velocity.y = _rb.velocity.y; // Conservar la velocidad vertical (gravedad, etc.)
+            _rb.velocity = velocity;
+            //Rotacion
+            if (moveDir != Vector3.zero)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(moveDir);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
+            }
         }
     }
     private void OnCollisionEnter(Collision collision)
