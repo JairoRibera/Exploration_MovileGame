@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Inventario : MonoBehaviour
 {
-    private Door doorRef;
-    private Key keyRef;
+    public Door doorRef;
+    public Key keyRef;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +22,7 @@ public class Inventario : MonoBehaviour
     {
         if (keyRef.hasKey == true)
         {
-            Debug.Log("Se ha completado");
+            //Debug.Log("Se ha completado");
             doorRef.OpenDoor();
         }
     }

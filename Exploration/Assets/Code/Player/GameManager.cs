@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public Transform camera;
     public Transform posCam;
     public float speed;
+    public GameObject TextA;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +21,7 @@ public class GameManager : MonoBehaviour
         joystickRotator = GameObject.FindGameObjectWithTag("Player").GetComponent<JoystickRotator>();
         isNearRef = GameObject.FindGameObjectWithTag("Palanca").GetComponent<IsNear>();
         CameraOrbit = Camera.main.GetComponent<CameraOrbit>();
+
     }
 
     // Update is called once per frame
@@ -37,6 +39,7 @@ public class GameManager : MonoBehaviour
             playerController._rb.velocity = Vector3.zero;
             camera.position = posCam.position;
             camera.transform.LookAt(joystickRotator.target.position);
+
         }
         if (Input.GetKeyDown(KeyCode.JoystickButton1) || Input.GetKeyDown(KeyCode.Q))
         {
@@ -47,5 +50,12 @@ public class GameManager : MonoBehaviour
             camera.position = CameraOrbit.target.position;
         }
 
+    }
+    public void DeActivateText()
+    {
+        if(isNearRef.isNear == true)
+        {
+            TextA.SetActive(false);
+        }
     }
 }

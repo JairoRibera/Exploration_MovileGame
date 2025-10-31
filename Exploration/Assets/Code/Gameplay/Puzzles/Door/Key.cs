@@ -10,6 +10,7 @@ public class Key : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             hasKey = true;
+            gameObject.SetActive(false);
         }
     }
 }
