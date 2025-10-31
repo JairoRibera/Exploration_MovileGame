@@ -19,10 +19,12 @@ public class Escalar : MonoBehaviour
     public bool isGrounded;
     public float distanceRay;
 
+    private PlayerController playerController;
     // Start is called before the first frame update
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        playerController = GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
@@ -68,6 +70,7 @@ public class Escalar : MonoBehaviour
     }
     private void AlignToLadder()
     {
+
         // Hace que el jugador mire hacia la escalera
         //Hacemos un vector, que será la resta de la pos de la escalera y del jugador
         Vector3 lookDir = ladderTransform.position - transform.position;
@@ -77,15 +80,19 @@ public class Escalar : MonoBehaviour
         {
             Quaternion rot = Quaternion.LookRotation(lookDir);
             transform.rotation = rot;
+
         }
     }
     public void EscalarLadder()
     {
+        playerController.canMove = false;
         //Obtenemos el input vertical
         float vertical = Input.GetAxisRaw("Vertical");
+        transform.Translate(Vector3.up * vertical * Time.deltaTime*velocidadsubida); 
+        
         //Creamos un vector para la subida y le añadimos la velocidadsubida
-        Vector3 climbDirection = Vector3.up * vertical * velocidadsubida;
-        _rb.velocity = climbDirection;
+        //Vector3 climbDirection = Vector3.up * vertical * velocidadsubida;
+        //_rb.velocity = climbDirection;
         //Si el input es menor a 0, es decir que está pulsando para bajar y está tocando el suelo
         if (vertical < 0 && isGrounded)
         {
@@ -93,15 +100,18 @@ public class Escalar : MonoBehaviour
             isClimbing = false;
             _rb.useGravity = true;
             _rb.AddForce(transform.forward * exitLadderPush, ForceMode.VelocityChange);
+            playerController.canMove = true;
         }
     }
     private void ExitLadder()
     {
+        playerController.canMove = true;
         isClimbing = false;
         _rb.useGravity = true;
         _rb.velocity = transform.forward * exitLadderPush; // pequeño empuje al salir
         //_rb.AddForce(transform.forward * exitLadderPush, ForceMode.VelocityChange);
         //canMove = true;
+
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -116,6 +126,7 @@ public class Escalar : MonoBehaviour
     {
         if (other.CompareTag("Stair"))
         {
+            playerController.canMove = true;
             canClimb = false;
             if (isClimbing) ExitLadder();
         }
