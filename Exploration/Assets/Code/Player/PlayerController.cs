@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -13,6 +14,8 @@ public class PlayerController : MonoBehaviour
     public bool canMove = true;
     private Camera camera; // Asignar la cámara desde el inspector
     public float rotationSpeed = 10f;
+    public LayerMask Ground;
+    public bool isGrounded;
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
@@ -35,6 +38,11 @@ public class PlayerController : MonoBehaviour
             Vector3 camForward = Vector3.Scale(camera.transform.forward, new Vector3(1, 0, 1)).normalized;
             Vector3 camRight = Vector3.Scale(camera.transform.right, new Vector3(1, 0, 1)).normalized;
             Vector3 moveDir = (camForward * vertical + camRight * horizontal).normalized;
+            isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.1f, Ground);
+            if(isGrounded == false)
+            {
+                _rb.AddForce(Vector3.down * 50f);
+            }
             Vector3 velocity = moveDir * moveSpeed;
             velocity.y = _rb.velocity.y; // Conservar la velocidad vertical (gravedad, etc.)
             _rb.velocity = velocity;

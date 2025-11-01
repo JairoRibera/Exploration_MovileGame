@@ -32,6 +32,8 @@ public class Escalar : MonoBehaviour
     {
         //Lanzamos un rasho, para saber si está tocando el suelo
         isGrounded = Physics.Raycast(groundCheckCenter.position, Vector3.down, distanceRay, groundLayer);
+        isGrounded = Physics.Raycast(groundCheckCenter.position, Vector3.down, distanceRay, groundLayer);
+        CheckForLadderBelow();
     }
     private void FixedUpdate()
     {
@@ -112,6 +114,24 @@ public class Escalar : MonoBehaviour
         //_rb.AddForce(transform.forward * exitLadderPush, ForceMode.VelocityChange);
         //canMove = true;
 
+    }
+    void CheckForLadderBelow()
+    {
+        // Lanzamos un raycast hacia abajo para ver si hay una escalera justo debajo
+        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 1f))
+        {
+            if (hit.collider.CompareTag("Stair"))
+            {
+                canClimb = true;
+                ladderTransform = hit.collider.transform;
+
+                // Si el jugador pulsa hacia abajo, empieza a escalar
+                if (Input.GetAxisRaw("Vertical") < 0 && !isClimbing)
+                {
+                    StartClimbing();
+                }
+            }
+        }
     }
     private void OnTriggerEnter(Collider other)
     {
