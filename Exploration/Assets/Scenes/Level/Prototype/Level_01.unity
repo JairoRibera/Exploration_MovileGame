@@ -1081,12 +1081,12 @@ PrefabInstance:
     - target: {fileID: 8214644870121559019, guid: 07ed565e6f0c898488df79806cf341fa,
         type: 3}
       propertyPath: m_Size.y
-      value: 5.5665836
+      value: 5.77013
       objectReference: {fileID: 0}
     - target: {fileID: 8214644870121559019, guid: 07ed565e6f0c898488df79806cf341fa,
         type: 3}
       propertyPath: m_Center.y
-      value: 2.7327843
+      value: 2.8345575
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7477,17 +7477,17 @@ PrefabInstance:
     - target: {fileID: 4170056589103374425, guid: 41a97d9f3d3dc6840aed6843fe05ad5d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.06346285
+      value: -1.41
       objectReference: {fileID: 0}
     - target: {fileID: 4170056589103374425, guid: 41a97d9f3d3dc6840aed6843fe05ad5d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4
+      value: 4.34
       objectReference: {fileID: 0}
     - target: {fileID: 4170056589103374425, guid: 41a97d9f3d3dc6840aed6843fe05ad5d,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -12.357901
+      value: -12.29
       objectReference: {fileID: 0}
     - target: {fileID: 4170056589103374425, guid: 41a97d9f3d3dc6840aed6843fe05ad5d,
         type: 3}
@@ -7722,17 +7722,17 @@ PrefabInstance:
     - target: {fileID: 2338444025174592313, guid: 974ac3b45e98d314a8150341832e1a80,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -1.3465366
       objectReference: {fileID: 0}
     - target: {fileID: 2338444025174592313, guid: 974ac3b45e98d314a8150341832e1a80,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.22
+      value: 8.559999
       objectReference: {fileID: 0}
     - target: {fileID: 2338444025174592313, guid: 974ac3b45e98d314a8150341832e1a80,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -14.34
+      value: -14.2720995
       objectReference: {fileID: 0}
     - target: {fileID: 2338444025174592313, guid: 974ac3b45e98d314a8150341832e1a80,
         type: 3}
@@ -7918,6 +7918,7 @@ GameObject:
   - component: {fileID: 2014530368}
   - component: {fileID: 2014530367}
   - component: {fileID: 2014530366}
+  - component: {fileID: 2014530370}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -8011,6 +8012,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2014530370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2014530365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6fdcf5ad3a97cc43a5756dc3eb4770a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2016212819
 GameObject:
   m_ObjectHideFlags: 0
