@@ -9,7 +9,7 @@ public class Inventario : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        doorRef = GameObject.FindWithTag("Door").GetComponent<Door>();
+        //doorRef = GameObject.FindWithTag("Door").GetComponent<Door>();
         keyRef = GameObject.FindWithTag("Key").GetComponent<Key>();
     }
 
@@ -20,7 +20,7 @@ public class Inventario : MonoBehaviour
     }
     public void IsComplete()
     {
-        if (keyRef.hasKey == true)
+        if ( doorRef.onRange == true && keyRef.hasKey == true)
         {
             //Debug.Log("Se ha completado");
             doorRef.OpenDoor();

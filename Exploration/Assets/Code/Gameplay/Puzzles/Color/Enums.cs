@@ -7,6 +7,6 @@ public class Enums : MonoBehaviour
 
     public enum ColorType
     {
-        Red, Green, Blue
+        Red, Green, Blue,Key
     }
 }

@@ -28,8 +28,10 @@ public class JoystickRotator : MonoBehaviour
     public bool canRotY = false;
     public bool canRotZ = false;
 
+
     void Update()
     {
+        if (target == null) return;
         if (isNear.isNear == true) 
         {
             if (!isNear || !isNear.isNear)
