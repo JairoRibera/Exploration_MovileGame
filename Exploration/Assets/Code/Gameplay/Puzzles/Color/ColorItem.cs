@@ -41,13 +41,13 @@ public class ColorItem : MonoBehaviour
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("PickItem"), true);
     }
 
-    public void Drop()
-    {
-        isFollowing = false;
-        followTarget = null;
-        rb.velocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
-        gameObject.layer = LayerMask.NameToLayer("Default");
-        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("PickItem"), false);
-    }
+    //public void Drop()
+    //{
+    //    isFollowing = false;
+    //    followTarget = null;
+    //    rb.velocity = Vector3.zero;
+    //    rb.angularVelocity = Vector3.zero;
+    //    gameObject.layer = LayerMask.NameToLayer("Default");
+    //    Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("PickItem"), false);
+    //}
 }

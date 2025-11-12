@@ -8,8 +8,9 @@ public class PickItem : MonoBehaviour
     [Header("Settings")]
     public float grabDistance = 3f;
     public float holdDistance = 2f;
-    public float moveSmoothness = 10f;
+    private float moveSmoothness = 10f;
     public LayerMask grabbableLayer;
+    public float followDelay = 0.15f; // Nuevo: control del delay
     //public string grabInput = "e";
 
     [Header("References")]
@@ -17,10 +18,11 @@ public class PickItem : MonoBehaviour
 
     private Rigidbody heldObjectRb = null;
     private Transform heldObjectOriginalParent;
+    private Vector3 currentVelocity; // Para SmoothDamp
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.JoystickButton0))
         {
             if (heldObjectRb == null)
             {
@@ -28,31 +30,40 @@ public class PickItem : MonoBehaviour
             }
             else
             {
-                ReleaseObject();
+                return;
+                //ReleaseObject();
             }
         }
-        if (Input.GetKeyDown(KeyCode.JoystickButton0))
-        {
-            if (heldObjectRb == null)
-            {
-                TryGrabObject();
-            }
-            else
-            {
-                ReleaseObject();
-            }
-        }
+        //if (Input.GetKeyDown(KeyCode.JoystickButton0))
+        //{
+        //    if (heldObjectRb == null)
+        //    {
+        //        TryGrabObject();
+        //    }
+        //    else
+        //    {
+        //        return;
+        //        //ReleaseObject();
+        //    }
+        //}
 
+
+    }
+    private void FixedUpdate()
+    {
         // Mover el objeto agarrado hacia el punto de sujeción
         if (heldObjectRb != null)
         {
             Vector3 targetPosition = holdPoint.position;
-            Vector3 directionToMove = targetPosition - heldObjectRb.position;
-
-            heldObjectRb.velocity = directionToMove * moveSmoothness;
+            //Vector3 directionToMove = targetPosition - heldObjectRb.position;
+            Vector3 smoothedPosition = Vector3.SmoothDamp(heldObjectRb.position, targetPosition, ref currentVelocity, followDelay);
+            //heldObjectRb.velocity = directionToMove * moveSmoothness;
+            heldObjectRb.MovePosition(smoothedPosition);
+            // Rotación suave para que mire hacia adelante
+            Quaternion targetRotation = holdPoint.rotation;
+            heldObjectRb.MoveRotation(Quaternion.Slerp(heldObjectRb.rotation, targetRotation, Time.fixedDeltaTime * 10f));
         }
     }
-
     void TryGrabObject()
     {
         Ray ray = new Ray(transform.position, transform.forward);
@@ -71,16 +82,16 @@ public class PickItem : MonoBehaviour
         }
     }
 
-    void ReleaseObject()
-    {
-        if (heldObjectRb != null)
-        {
-            heldObjectRb.useGravity = true;
-            heldObjectRb.freezeRotation = false;
-            heldObjectRb.velocity = Vector3.zero;
-            heldObjectRb.transform.parent = heldObjectOriginalParent;
-            heldObjectRb.GetComponent<Collider>().enabled = true;
-            heldObjectRb = null;
-        }
-    }
+    //void ReleaseObject()
+    //{
+    //    if (heldObjectRb != null)
+    //    {
+    //        heldObjectRb.useGravity = true;
+    //        heldObjectRb.freezeRotation = false;
+    //        heldObjectRb.velocity = Vector3.zero;
+    //        heldObjectRb.transform.parent = heldObjectOriginalParent;
+    //        heldObjectRb.GetComponent<Collider>().enabled = true;
+    //        heldObjectRb = null;
+    //    }
+    //}
 }

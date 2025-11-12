@@ -1922,7 +1922,7 @@ GameObject:
   - component: {fileID: 477925280}
   - component: {fileID: 477925279}
   - component: {fileID: 477925278}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (8)
   m_TagString: Door
   m_Icon: {fileID: 0}
@@ -1941,6 +1941,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc5565ed71ce2bc4e92a266feb92b1df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onRange: 0
 --- !u!65 &477925279
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6047,6 +6048,7 @@ GameObject:
   - component: {fileID: 1059954934}
   - component: {fileID: 1059954933}
   - component: {fileID: 1059954932}
+  - component: {fileID: 1059954937}
   m_Layer: 0
   m_Name: Cube (6)
   m_TagString: Palanca
@@ -6066,6 +6068,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00e1939272a68ad4b92569937963f255, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isNearDetector: {fileID: 1059954932}
+  joystickRotator: {fileID: 1679789604}
+  childName: Cilindro
   isNear: 0
   canInteract: 0
   TextA: {fileID: 1714014276}
@@ -6155,6 +6160,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1059954937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1059954931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb852782ed00b524f89ddff2a55bffaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isNearDetector: {fileID: 1059954932}
+  joystickRotator: {fileID: 1679789604}
+  rotatableChildren:
+  - child: {fileID: 1433783760}
+    rotX: 0
+    rotY: 1
+    rotZ: 0
 --- !u!43 &1098712425
 Mesh:
   m_ObjectHideFlags: 0
@@ -6501,9 +6525,13 @@ GameObject:
   - component: {fileID: 1377422413}
   - component: {fileID: 1377422412}
   - component: {fileID: 1377422411}
+  - component: {fileID: 1377422415}
   - component: {fileID: 1377422410}
   - component: {fileID: 1377422409}
-  m_Layer: 0
+  - component: {fileID: 1377422416}
+  - component: {fileID: 1377422417}
+  - component: {fileID: 1377422418}
+  m_Layer: 6
   m_Name: Key
   m_TagString: Key
   m_Icon: {fileID: 0}
@@ -6609,6 +6637,90 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &1377422415
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1377422408}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1377422416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1377422408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 632bf87c17e160d419e5f786abca9dc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorType: 3
+  followSpeed: 10
+  followTarget: {fileID: 0}
+--- !u!54 &1377422417
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1377422408}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!95 &1377422418
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1377422408}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4c4ef4eab35b68d498ba2ecd91174518, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1391082671
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7045,7 +7157,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1433783760}
   m_Layer: 0
-  m_Name: ObjectoRotate
+  m_Name: Cilindro
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7449,6 +7561,12 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2235534590389769144, guid: 41a97d9f3d3dc6840aed6843fe05ad5d,
+        type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000,
+        type: 0}
     - target: {fileID: 2630157703539580261, guid: 41a97d9f3d3dc6840aed6843fe05ad5d,
         type: 3}
       propertyPath: isGrounded
@@ -7473,6 +7591,11 @@ PrefabInstance:
         type: 3}
       propertyPath: canRotY
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3209892093476757788, guid: 41a97d9f3d3dc6840aed6843fe05ad5d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.75
       objectReference: {fileID: 0}
     - target: {fileID: 4170056589103374425, guid: 41a97d9f3d3dc6840aed6843fe05ad5d,
         type: 3}
@@ -7540,6 +7663,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1679789602}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1679789604 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3123801384629099731, guid: 41a97d9f3d3dc6840aed6843fe05ad5d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1679789602}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fac5282cf0fc9464a832501555935d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &1688917226
 Mesh:
   m_ObjectHideFlags: 0
@@ -7784,6 +7919,11 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1318590885}
+    - target: {fileID: 8994281066046906761, guid: 974ac3b45e98d314a8150341832e1a80,
+        type: 3}
+      propertyPath: Wall.m_Bits
+      value: 768
+      objectReference: {fileID: 0}
     - target: {fileID: 8994281066046906761, guid: 974ac3b45e98d314a8150341832e1a80,
         type: 3}
       propertyPath: personajeNegro

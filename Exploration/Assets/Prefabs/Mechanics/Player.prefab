@@ -241,10 +241,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grabDistance: 3
   holdDistance: 2
-  moveSmoothness: 10
   grabbableLayer:
     serializedVersion: 2
     m_Bits: 64
+  followDelay: 0.15
   holdPoint: {fileID: 3209892093476757788}
 --- !u!136 &4065535608837505793
 CapsuleCollider:
