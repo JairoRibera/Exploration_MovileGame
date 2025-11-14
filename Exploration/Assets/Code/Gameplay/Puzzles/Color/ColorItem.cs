@@ -20,15 +20,15 @@ public class ColorItem : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (isFollowing && followTarget != null)
-        {
-            Vector3 direction = (followTarget.position - transform.position);
-            rb.velocity = direction * followSpeed;
+        //if (isFollowing && followTarget != null)
+        //{
+        //    Vector3 direction = (followTarget.position - transform.position);
+        //    rb.velocity = direction * followSpeed;
 
-            // Si quieres que rote también:
-            Quaternion targetRotation = followTarget.rotation;
-            rb.MoveRotation(Quaternion.Slerp(rb.rotation, targetRotation, Time.fixedDeltaTime * followSpeed));
-        }
+        //    // Si quieres que rote también:
+        //    Quaternion targetRotation = followTarget.rotation;
+        //    rb.MoveRotation(Quaternion.Slerp(rb.rotation, targetRotation, Time.fixedDeltaTime * followSpeed));
+        //}
     }
 
     public void Pick(Transform _player)

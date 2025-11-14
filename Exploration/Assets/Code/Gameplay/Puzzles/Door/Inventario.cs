@@ -22,6 +22,7 @@ public class Inventario : MonoBehaviour
     {
         if ( doorRef.onRange == true && keyRef.hasKey == true)
         {
+            keyRef.gameObject.SetActive(false);
             //Debug.Log("Se ha completado");
             doorRef.OpenDoor();
         }

@@ -18,13 +18,14 @@ public class Escalar : MonoBehaviour
     public LayerMask groundLayer;
     public bool isGrounded;
     public float distanceRay;
-
+    private PickItem pickItem;
     private PlayerController playerController;
     // Start is called before the first frame update
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
         playerController = GetComponent<PlayerController>();
+        pickItem = GetComponent<PickItem>();
     }
 
     // Update is called once per frame
