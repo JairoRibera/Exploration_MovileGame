@@ -930,7 +930,6 @@ GameObject:
   - component: {fileID: 328546409}
   - component: {fileID: 328546408}
   - component: {fileID: 328546417}
-  - component: {fileID: 328546418}
   m_Layer: 6
   m_Name: Key (2)
   m_TagString: Key
@@ -1114,24 +1113,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anchor: {fileID: 1679789615}
   index: 0
+  alturaSobreSuelo: 0.5
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 2048
+  rayodistance: 4
   separacion: 0.5
   amplitud: 0.15
-  velocidad: 3
+  velocidad: 4
   suavizado: 10
---- !u!114 &328546418
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 328546407}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58351cbd6c39d50439470ac44bc03ff8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  distancia: 1.2
-  suavizado: 12
+  rampa: 0
+  escalarRef: {fileID: 1679789616}
 --- !u!1001 &363671016
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2527,7 +2519,7 @@ GameObject:
   - component: {fileID: 627961718}
   - component: {fileID: 627961717}
   - component: {fileID: 627961723}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Stairs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7721,6 +7713,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   distancia: 1.2
   suavizado: 12
+--- !u!114 &1679789616 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7117552536369940736, guid: 41a97d9f3d3dc6840aed6843fe05ad5d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1679789602}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1260730977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 969d3be4c9c04144ab947b9c26119024, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &1688917226
 Mesh:
   m_ObjectHideFlags: 0
@@ -7998,7 +8002,7 @@ GameObject:
   - component: {fileID: 1976461032}
   - component: {fileID: 1976461031}
   - component: {fileID: 1976461030}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8034,7 +8038,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1976461029}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Escalar : MonoBehaviour
 {
+
     [Header("Escalar")]
     public float velocidadsubida = 10f;
     public bool canClimb = false;//booleana para saber si puede escalar

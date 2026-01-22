@@ -14,6 +14,12 @@ public class EggAnchor : MonoBehaviour
         anchorPos = transform.position;
     }
 
+    public void ClimbEgg()
+    {
+        Vector3 targetClimb = transform.position -transform.up  * distancia;
+
+        anchorPos = Vector3.Lerp(anchorPos,targetClimb,suavizado * Time.deltaTime);
+    }
     void LateUpdate()
     {
         Vector3 target = transform.position - transform.forward * distancia;
