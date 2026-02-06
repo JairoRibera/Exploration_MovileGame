@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     private JoystickRotator joystickRotator;
     private IsNear isNearRef;
     private CameraOrbit CameraOrbit;
-    public Transform camera;
+    public Transform camerapos;
     public Transform posCam;
     public float speed;
     public GameObject TextA;
@@ -37,8 +37,8 @@ public class GameManager : MonoBehaviour
             CameraOrbit.GetComponent<CameraOrbit>().enabled = false;
             playerController.canMove = false;
             playerController._rb.velocity = Vector3.zero;
-            camera.position = posCam.position;
-            camera.transform.LookAt(joystickRotator.target.position);
+            camerapos.position = posCam.position;
+            camerapos.transform.LookAt(joystickRotator.target.position);
 
         }
         if (Input.GetKeyDown(KeyCode.JoystickButton1) || Input.GetKeyDown(KeyCode.Q))
@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
             joystickRotator.GetComponent<JoystickRotator>().enabled = false;
             CameraOrbit.GetComponent<CameraOrbit>().enabled = true;
             playerController.canMove = true;
-            camera.position = CameraOrbit.target.position;
+            camerapos.position = CameraOrbit.target.position;
         }
 
     }

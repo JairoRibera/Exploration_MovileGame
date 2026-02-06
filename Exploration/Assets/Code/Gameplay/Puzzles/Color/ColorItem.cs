@@ -10,7 +10,7 @@ public class ColorItem : MonoBehaviour
     private Collider col;
     public float followSpeed = 10f;
     public Transform followTarget; // Punto al que seguir
-    private bool isFollowing = false;
+    //private bool isFollowing = false;
 
     private void Start()
     {
@@ -36,7 +36,7 @@ public class ColorItem : MonoBehaviour
         col.enabled = true; // NO desactivar el collider
         rb.isKinematic = false; // Dejar que las físicas funcionen
         followTarget = _player;
-        isFollowing = true;
+        //isFollowing = true;
         gameObject.layer = LayerMask.NameToLayer("PickItem");
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("PickItem"), true);
     }

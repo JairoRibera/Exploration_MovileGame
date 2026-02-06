@@ -32,7 +32,7 @@ public class IsNear : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("No se encontró el hijo: " + childName);
+                return;
             }
         }
 

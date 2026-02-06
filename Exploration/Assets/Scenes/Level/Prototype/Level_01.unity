@@ -928,7 +928,6 @@ GameObject:
   - component: {fileID: 328546411}
   - component: {fileID: 328546410}
   - component: {fileID: 328546409}
-  - component: {fileID: 328546408}
   - component: {fileID: 328546417}
   m_Layer: 6
   m_Name: Key (2)
@@ -937,27 +936,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!95 &328546408
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 328546407}
-  m_Enabled: 0
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 4c4ef4eab35b68d498ba2ecd91174518, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!54 &328546409
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1111,7 +1089,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 860aaf64f6f1b0f49a4bc2d4060d133a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anchor: {fileID: 1679789615}
   index: 0
   alturaSobreSuelo: 0.5
   groundMask:
@@ -1121,7 +1098,6 @@ MonoBehaviour:
   separacion: 0.5
   amplitud: 0.15
   velocidad: 4
-  suavizado: 10
   rampa: 0
   escalarRef: {fileID: 1679789616}
 --- !u!1001 &363671016
@@ -7530,7 +7506,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d89389a7183e77a49adb23b70fcbef8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 1602947447}
+  camerapos: {fileID: 1602947447}
   posCam: {fileID: 877764738}
   speed: 2
   TextA: {fileID: 1714014276}
@@ -7670,7 +7646,7 @@ PrefabInstance:
     - target: {fileID: 9199102474401709203, guid: 41a97d9f3d3dc6840aed6843fe05ad5d,
         type: 3}
       propertyPath: grabDistance
-      value: 2.5
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

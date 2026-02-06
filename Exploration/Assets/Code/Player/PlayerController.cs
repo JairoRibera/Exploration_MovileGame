@@ -12,14 +12,14 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 5f;
     public Rigidbody _rb;
     public bool canMove = true;
-    private Camera camera; // Asignar la cámara desde el inspector
+    private Camera cam; // Asignar la cámara desde el inspector
     public float rotationSpeed = 10f;
     public LayerMask Ground;
     public bool isGrounded;
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
-        camera = Camera.main;
+        cam = Camera.main;
     }
     private void FixedUpdate()
     {
@@ -35,8 +35,8 @@ public class PlayerController : MonoBehaviour
         if(canMove == true)
         {
             // Convertir input a dirección relativa a la cámara
-            Vector3 camForward = Vector3.Scale(camera.transform.forward, new Vector3(1, 0, 1)).normalized;
-            Vector3 camRight = Vector3.Scale(camera.transform.right, new Vector3(1, 0, 1)).normalized;
+            Vector3 camForward = Vector3.Scale(cam.transform.forward, new Vector3(1, 0, 1)).normalized;
+            Vector3 camRight = Vector3.Scale(cam.transform.right, new Vector3(1, 0, 1)).normalized;
             Vector3 moveDir = (camForward * vertical + camRight * horizontal).normalized;
             isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.1f, Ground);
             if(isGrounded == false)

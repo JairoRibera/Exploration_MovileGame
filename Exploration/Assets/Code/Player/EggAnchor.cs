@@ -6,7 +6,11 @@ public class EggAnchor : MonoBehaviour
 {
     public float distancia = 1.2f;
     public float suavizado = 12f;
-
+    public static EggAnchor Instance;
+    public void Awake()
+    {
+        Instance = this;
+    }
     public Vector3 anchorPos { get; private set; }
 
     void Start()
