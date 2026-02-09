@@ -80,6 +80,7 @@ GameObject:
   - component: {fileID: 4065535608837505793}
   - component: {fileID: 3123801384629099731}
   - component: {fileID: 7117552536369940736}
+  - component: {fileID: 1529824737539272301}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -198,7 +199,7 @@ MonoBehaviour:
   rotationSpeed: 10
   Ground:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   isGrounded: 0
 --- !u!54 &577282007396979712
 Rigidbody:
@@ -240,12 +241,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grabDistance: 3
-  holdDistance: 2
   grabbableLayer:
     serializedVersion: 2
     m_Bits: 64
-  followDelay: 0.15
-  holdPoint: {fileID: 3209892093476757788}
 --- !u!136 &4065535608837505793
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -310,6 +308,20 @@ MonoBehaviour:
     m_Bits: 256
   isGrounded: 0
   distanceRay: 0.6
+--- !u!114 &1529824737539272301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5499193253631122060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58351cbd6c39d50439470ac44bc03ff8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distancia: 1.2
+  suavizado: 12
 --- !u!1 &6249339482700808106
 GameObject:
   m_ObjectHideFlags: 0
