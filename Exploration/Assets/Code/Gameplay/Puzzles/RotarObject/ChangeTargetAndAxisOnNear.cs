@@ -1,15 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.ConstrainedExecution;
-using Unity.VisualScripting;
+
 using UnityEngine;
-using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
-//using static UnityEditor.ShaderData;
-using UnityEngine.UIElements;
-//using static UnityEditor.PlayerSettings;
-using static UnityEngine.EventSystems.EventTrigger;
-//using UnityEditor.Experimental.GraphView;
 
 public class ChangeTargetAndAxisOnNear : MonoBehaviour
 {

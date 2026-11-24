@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public GameObject salirText;
     private PlayerController playerController;
     private JoystickRotator joystickRotator;
     private IsNear isNearRef;
@@ -37,6 +38,7 @@ public class GameManager : MonoBehaviour
             CameraOrbit.GetComponent<CameraOrbit>().enabled = false;
             playerController.canMove = false;
             playerController._rb.velocity = Vector3.zero;
+            salirText.SetActive(true);
             camerapos.position = posCam.position;
             camerapos.transform.LookAt(joystickRotator.target.position);
 
@@ -46,6 +48,7 @@ public class GameManager : MonoBehaviour
             isNearRef.isNear = false;
             joystickRotator.GetComponent<JoystickRotator>().enabled = false;
             CameraOrbit.GetComponent<CameraOrbit>().enabled = true;
+            salirText.SetActive(false);
             playerController.canMove = true;
             camerapos.position = CameraOrbit.target.position;
         }

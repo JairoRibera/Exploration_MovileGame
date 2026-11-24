@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class JoystickRotator : MonoBehaviour
@@ -37,7 +36,7 @@ public class JoystickRotator : MonoBehaviour
             if (!isNear || !isNear.isNear)
                 return;
 
-            // Leer joystick izquierdo
+            // Leer joystick
             float horizontal = Input.GetAxis("OrbitalCameraHorizontal");
             float vertical = Input.GetAxis("OrbitalCameraVertical");
             Vector2 stickInput = new Vector2(horizontal, vertical);

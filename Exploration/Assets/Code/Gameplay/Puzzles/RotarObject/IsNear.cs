@@ -18,6 +18,7 @@ public class IsNear : MonoBehaviour
     public bool isNear = false;
     public bool canInteract = false;
     public GameObject TextA;
+
     private void Update()
     {
         // Si el jugador está cerca y no se ha cambiado el target todavía
